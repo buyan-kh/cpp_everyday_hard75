@@ -5,7 +5,7 @@
 
 void ToDoList::addTask(const std::string& description) {
 	Task newTask;
-	newTask.id = tasks.size() + 1;
+	newTask.id = nextId++;
 	newTask.description = description;
 	newTask.isCompleted = false;
 
@@ -53,6 +53,10 @@ void ToDoList::loadFromFile(const std::string& name) {
 			loadedTask.description = description;
 
 			tasks.push_back(loadedTask);
+
+			if (loadedTask.id >= nextId) {
+				nextId = loadedTask.id + 1;
+			}
 		}
 	}
 	inFile.close();
@@ -69,8 +73,21 @@ void ToDoList::markAsDone(int id) {
 	std::cout << "Task with ID " << id << " not found.\n";
 }
 
+void ToDoList::deleteTask(int id) {
+	for (auto it = tasks.begin(); it != tasks.end(); it++) {
+		if (it -> id == id) {
+			tasks.erase(it);
+			std::cout << "Task " << id << " deleted successfully. \n";
+			return; 
+		}
+	}
+	std::cout << "Task with ID " << id << " not found.\n";
+}
 
-ToDoList::ToDoList() {}
+
+ToDoList::ToDoList() : nextId(1) {
+	loadFromFile("tasks.txt");
+}
 ToDoList::~ToDoList() {
 	saveToFile("tasks.txt");
 	std::cout << "Data auto saved. Goodbye!" << std::endl;

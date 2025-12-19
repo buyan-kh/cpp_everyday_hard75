@@ -9,8 +9,14 @@ int main() {
 
 	while(true) {
 		std::cout << "\n--- TODO LIST ---\n";
-		std::cout << "1. Add Task\n2. List Task\n3. Mark Task as Done\n4. Exit\nSelection: ";
+		std::cout << "1. Add Task\n2. List Task\n3. Mark Task as Done\n4. Exit\n5. Delete\nSelection: ";
 		std::cin >> choice;
+		if (std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::cout << "Invalid input. Please enter a number. \n";
+			continue;
+		}
 
 		if (choice == 4) {
 			break;
@@ -33,6 +39,13 @@ int main() {
 					std::cout << "Enter task ID to mark as done: ";
 					std::cin >> id;
 					myTodo.markAsDone(id);
+					break;
+				}
+			case 5: {
+					int id;
+					std::cout << "Enter task ID to delete: ";
+					std::cin >> id;
+					myTodo.deleteTask(id);
 					break;
 				}
 

@@ -8,6 +8,7 @@
 class ToDoList {
 private:
 	std::vector<Task> tasks;
+	int nextId;
 public:
 	ToDoList();
 	~ToDoList();	
@@ -16,6 +17,7 @@ public:
 	void saveToFile(const std::string& name) const;
 	void loadFromFile(const std::string& url);
 	void markAsDone(int id);
+	void deleteTask(int id);
 };
 
 #endif
