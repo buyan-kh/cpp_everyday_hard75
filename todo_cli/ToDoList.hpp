@@ -8,9 +8,14 @@
 class ToDoList {
 private:
 	std::vector<Task> tasks;
-public:	
+public:
+	ToDoList();
+	~ToDoList();	
 	void addTask(const std::string& description);
-	void listTask() const;
+	void listTasks() const;
+	void saveToFile(const std::string& name) const;
+	void loadFromFile(const std::string& url);
+	void markAsDone(int id);
 };
 
 #endif
